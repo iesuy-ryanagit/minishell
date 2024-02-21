@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 15:28:42 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 12:33:10 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:55:34 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,27 @@ int	check_exist_slash(char *str)
 		i++;
 	}
 	return (0);
+}
+
+char	*process_slash(char **argv, char **cmd)
+{
+	char		*path;
+
+	path = argv[0];
+	if (access((path + res(path)), F_OK) != 0)
+	{
+		nofile_youwant_message(path);
+		double_free(argv);
+		double_free(cmd);
+		exit(127);
+	}
+	reject_file(argv, cmd, path);
+	if (access((path + res(path)), X_OK) != 0)
+	{
+		permission_denied_message(path);
+		double_free(argv);
+		double_free(cmd);
+		exit(126);
+	}
+	return (re_strdup(path, NULL));
 }

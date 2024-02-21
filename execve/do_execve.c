@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 15:28:42 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/21 12:55:00 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:59:36 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,14 @@ void	change_pipe(t_branch *branch, size_t i, int in, int out)
 	if (c_e_tp(com, HERE_DOC) == 0 && c_e_tp(com, RED_IN) == 0 && i != 0)
 	{
 		dup2(in, STDIN_FILENO);
-		close(in);
 	}
+	if (i != 0)
+		close(in);
 	if (c_e_tp(com, RED_OUT) == 0 && c_e_tp(com, CHASE) == 0 && (i != len - 1))
 	{
 		dup2(out, STDOUT_FILENO);
-		close(out);
 	}
+	close(out);
 }
 
 void	just_execve(char *cmd, char **argv, char **envp)
@@ -61,7 +62,7 @@ void	just_execve(char *cmd, char **argv, char **envp)
 	}
 }
 
-void	end_do_execve(int fd, t_branch *branch, pid_t pid, int i)
+void	end_do_execve(int fd, t_branch *branch, pid_t pid, size_t i)
 {
 	if (fd != STDIN_FILENO)
 		close(fd);

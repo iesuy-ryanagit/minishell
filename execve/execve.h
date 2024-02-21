@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:37:16 by kmotoyam          #+#    #+#             */
-/*   Updated: 2024/02/21 12:55:33 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:56:51 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char			**get_env_path(t_branch *branch);
 void			command_not_found_message(char *str);
 void			do_execute_roop(t_branch *branch);
 int				check_built(char *str);
-void			builtin_execute(char **argv, int fd, t_branch *branch);
 
 // cris.c
 void			try_pipe(int	*pipe_fd, int *o_fd, t_branch *bra, size_t i);
@@ -74,7 +73,7 @@ char			*red_in_last(t_token *list);
 void			change_heredoc(int fd, t_token *list);
 void			change_pipe(t_branch *branch, size_t i, int in, int out);
 void			just_execve(char *cmd, char **argv, char **envp);
-void			end_do_execve(int fd, t_branch *branch, pid_t pid, int i);
+void			end_do_execve(int fd, t_branch *branch, pid_t pid, size_t i);
 void			do_execve(t_branch *branch, int *in, int *out, size_t i);
 
 // do_other.c
@@ -82,7 +81,6 @@ void			do_built(t_token *cmd, t_branch *branch);
 int				pnft(t_branch *b, char *c, char **p, char **a);
 void			end_do_execve_parent(t_branch *branch, int fd, pid_t pid);
 void			do_execve_parent(t_token *cmd, t_branch *branch);
-void			do_built_child(t_token *cmd, t_branch *branch, int i, int out);
 
 // helpipe.c
 void			select_built_execve(t_branch *bra, size_t i, int *in, int *out);
@@ -100,5 +98,7 @@ void			fail_execve(t_branch *branch, int *out, int fd);
 t_command		*set_first(t_branch *branch, size_t i);
 
 // do_built_child.c
-void			do_built_child(t_token *cmd, t_branch *bra, int i, int fd_out);
+void			do_built_child(t_branch *bra, size_t i, int fd, int *in);
+size_t			res(char *str);
+void			reject_file(char **argv, char **cmd, char *path);
 #endif

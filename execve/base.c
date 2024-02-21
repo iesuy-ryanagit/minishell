@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 15:22:50 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/21 13:53:39 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 15:58:10 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,33 @@ size_t	res(char *str)
 	return (0);
 }
 
-char	*process_slash(char **argv, char **cmd)
+char	*last_slash(char *str)
 {
-	char		*path;
+	size_t	i;
+	char	*tmp;
 
-	path = argv[0];
-	if (access((path + res(path)), F_OK) != 0)
+	i = 0;
+	tmp = str;
+	while (str[i])
 	{
-		nofile_youwant_message(path);
-		double_free(argv);
-		double_free(cmd);
-		exit(127);
+		if (str[i] == '/')
+			tmp = &(str[i + 1]);
+		i++;
 	}
-	if (access((path + res(path)), X_OK) != 0)
+	return (tmp);
+}
+
+void	reject_file(char **argv, char **cmd, char *path)
+{
+	DIR		*fd;
+
+	fd = opendir(path);
+	if (fd != NULL)
 	{
-		permission_denied_message(path);
+		is_direct_message(path);
 		double_free(argv);
 		double_free(cmd);
+		closedir(fd);
 		exit(126);
 	}
-	return (re_strdup(path, NULL));
 }

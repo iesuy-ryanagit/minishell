@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:37:16 by kmotoyam          #+#    #+#             */
-/*   Updated: 2024/02/21 12:55:36 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:57:35 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	select_built_execve(t_branch *branch, size_t i, int *in, int *out)
 
 	l = get_command_len(branch->command);
 	if (check_built(branch->command[i]->str) == 1)
-	{
-		close(in[0]);
-		do_built_child(branch->command[i], branch, i, df_out(out[1], i, l));
-	}
+		do_built_child(branch, i, df_out(out[1], i, l), in);
 	else
 		do_execve(branch, in, out, i);
 }
@@ -78,8 +75,6 @@ void	which_close_end(int fd1, int fd2, int len, t_branch *branch)
 	while (branch->child_pid[i] != 0)
 	{
 		waitpid(branch->child_pid[i], &(branch->exit_status), 0);
-		if (branch->exit_status == 256)
-			branch->exit_status = 1;
 		i++;
 	}
 }

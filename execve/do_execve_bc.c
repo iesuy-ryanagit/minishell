@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:40:47 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/21 12:41:29 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:59:20 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void	dup_out(int fd_out)
 	}
 }
 
-void	do_built_child(t_token *cmd, t_branch *branch, int i, int fd_out)
+void	do_built_child(t_branch *branch, size_t i, int fd_out, int *in)
 {
+	t_token	*cmd;
 	char	**argv;
 	pid_t	pid;
 	int		fd;
 
+	cmd = branch->command[i];
 	while (cmd && cmd->type != COMMAND)
 		cmd = cmd->next;
 	fd = check_heredoc(cmd, branch);
@@ -47,6 +49,7 @@ void	do_built_child(t_token *cmd, t_branch *branch, int i, int fd_out)
 	error_built_child(branch, pid, fd, fd_out);
 	if (pid == 0)
 	{
+		close(in[0]);
 		dup_out(fd_out);
 		check_red(cmd);
 		change_heredoc(fd, cmd);
@@ -54,10 +57,7 @@ void	do_built_child(t_token *cmd, t_branch *branch, int i, int fd_out)
 		builtin_execute(argv, STDOUT_FILENO, branch);
 		exit(branch->exit_status);
 	}
-	else
-	{
-		if (fd != STDIN_FILENO)
-			close(fd);
-		branch->child_pid[i] = pid;
-	}
+	if (fd != STDIN_FILENO)
+		close(fd);
+	branch->child_pid[i] = pid;
 }
