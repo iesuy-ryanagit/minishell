@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 15:28:42 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/19 16:27:15 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/21 18:04:45 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,40 @@ void	help_judge_red(int i, t_token	*list)
 	if (i == CHASE)
 	{
 		out_fd = open(list->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (out_fd < 0)
-		{
-			ft_putstr_fd("ERROR", 2);
-			exit(1);
-		}
 		if (access(list->str, W_OK) != 0)
 		{
 			permission_denied_message(list->str);
 			exit(1);
 		}
+		if (out_fd < 0)
+		{
+			ft_putstr_fd("minishell:", STDERR_FILENO);
+			ft_putstr_fd(list->str, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+			ft_putstr_fd(strerror(errno), STDERR_FILENO);
+			ft_putstr_fd("\n", STDERR_FILENO);
+			exit(1);
+		}
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
+	}
+}
+
+void	check_access_out(char *str, int fd)
+{
+	if (access(str, W_OK) != 0)
+	{
+		permission_denied_message(str);
+		exit(1);
+	}
+	if (fd < 0)
+	{
+		ft_putstr_fd("minishell:", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(strerror(errno), STDERR_FILENO);
+		ft_putstr_fd("\n", STDERR_FILENO);
+		exit(1);
 	}
 }
 
@@ -61,11 +83,7 @@ void	judge_red(int i, t_token *list)
 	if (i == RED_OUT)
 	{
 		out_fd = open(list->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (out_fd < 0)
-		{
-			ft_putstr_fd("ERROR", 2);
-			exit(1);
-		}
+		check_access(list->str, out_fd);
 		dup2(out_fd, STDOUT_FILENO);
 		close(out_fd);
 	}
