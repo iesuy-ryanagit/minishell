@@ -55,6 +55,7 @@ CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
 all : $(NAME)
+	echo > ~/.inputrc set echo-control-characters off 
 
 $(LIBFT):
 	make -C $(LIBFT_PATH) all

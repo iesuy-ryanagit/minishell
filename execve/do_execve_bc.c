@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:40:47 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/21 14:59:20 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:33:50 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,13 @@ void	do_built_child(t_branch *branch, size_t i, int fd_out, int *in)
 	int		fd;
 
 	cmd = branch->command[i];
-	while (cmd && cmd->type != COMMAND)
-		cmd = cmd->next;
 	fd = check_heredoc(cmd, branch);
 	pid = fork();
 	error_built_child(branch, pid, fd, fd_out);
 	if (pid == 0)
 	{
-		close(in[0]);
+		if (i != 0)
+			close(in[0]);
 		dup_out(fd_out);
 		check_red(cmd);
 		change_heredoc(fd, cmd);
