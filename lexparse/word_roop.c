@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_roop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 10:16:04 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:42:15 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/22 11:00:36 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	word_cut_roop(char *str, t_branch *branch)
 	size_t		len;
 
 	i = 0;
+	*(branch->list) = NULL;
 	while (str[i])
 	{
 		while (check_split(str[i]) == 1)

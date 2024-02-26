@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 09:38:09 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:41:37 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:22:01 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_reduc_out(char c)
 
 int	check_split(char c)
 {
-	if ((9 <= c && c <= 13) || c == 32)
+	if ((9 <= c && c <= 11) || c == 32)
 		return (1);
 	else
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:37:16 by kmotoyam          #+#    #+#             */
-/*   Updated: 2024/02/21 15:56:51 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:29:10 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void			select_built_execve(t_branch *bra, size_t i, int *in, int *out);
 void			do_one_command(t_branch *branch);
 void			malloc_pid(t_branch *branch);
 size_t			double_close(int fd1, int fd2, size_t i);
-void			which_close_end(int fd1, int fd2, int len, t_branch *branch);
+void			which_close_end(int fd1, int fd2, size_t len, t_branch *branch);
 
 // pipe.c
 void			do_execute_roop(t_branch *branch);

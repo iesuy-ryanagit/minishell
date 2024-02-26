@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 17:37:16 by kmotoyam          #+#    #+#             */
-/*   Updated: 2024/02/21 14:57:35 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:29:35 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ size_t	double_close(int fd1, int fd2, size_t i)
 	return (i + 1);
 }
 
-void	which_close_end(int fd1, int fd2, int len, t_branch *branch)
+void	which_close_end(int fd1, int fd2, size_t len, t_branch *branch)
 {
 	size_t	i;
 
-	if (len % 2 == 0)
+	if (len % 2 == 1)
 		close(fd1);
 	else
 		close(fd2);

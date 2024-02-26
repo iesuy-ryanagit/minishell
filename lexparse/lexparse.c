@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexparse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 10:30:03 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:42:05 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/22 12:25:41 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_token	*one_word_split(t_token *token)
 		return (NULL);
 	while (token->str[i])
 	{
-		while (token->str[i] && exist_to_be_split(token->str[i], " \n	") == 1)
+		while (token->str[i] && exist_to_be_split(token->str[i], " \n\t\v") == 1)
 			i++;
-		if (get_len(token->str, " \n	", i) > 0)
+		if (get_len(token->str, " \n\t\v", i) > 0)
 		{
-			now = make_new_list(token->str, i, get_len(token->str, " \n	", i));
+			now = make_new_list(token->str, i, get_len(token->str, " \n\t\v", i));
 		}
 		split_token_add_back(&ret, now);
-		i += get_len(token->str, " \n	", i);
+		i += get_len(token->str, " \n\t\v", i);
 	}
 	free(token->str);
 	free(token);
@@ -100,14 +100,15 @@ void	word_split_roop(t_branch *branch)
 
 void	word_lexparse(char *str, t_branch *branch)
 {
-	t_token		**list;
-
-	list = malloc(sizeof(t_token **) * 1);
-	if (list == NULL)
+	branch->list = malloc(sizeof(t_token **) * 1);
+	if (branch->list == NULL)
 		free_end_before_token(str, branch);
-	*list = NULL;
-	branch->list = list;
 	word_cut_roop(str, branch);
+	if (*(branch->list) == NULL)
+	{
+		free(branch->list);
+		return ;
+	}
 	classify_type_loop(branch->list);
 	if (check_all(branch))
 	{

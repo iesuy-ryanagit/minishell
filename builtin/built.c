@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 16:38:37 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:41:09 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/22 10:28:05 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	builtin_execute(char **argv, int fd, t_branch *branch)
 		built_pwd(fd);
 	if (ft_strncmp(argv[0], "unset", 6) == 0)
 		built_unset(argv, branch);
+	if (fd != STDOUT_FILENO)
+		close(fd);
 	free_argv(argv);
 	branch->exit_status = flag;
 }
