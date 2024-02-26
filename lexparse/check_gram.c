@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_gram.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/28 16:22:02 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:41:39 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:38:53 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	wait_complete_valid(t_branch *branch)
 	while (check_pipe_nomessage(branch) == -1)
 	{
 		add = readline("> ");
-		word_cut_roop(add, branch);
+		only_word_cut_roop(add, branch);
 		classify_type_loop(branch->list);
 	}
 	if (check_pipe(branch) || check_reduc(branch))

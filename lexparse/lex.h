@@ -6,7 +6,7 @@
 /*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 18:26:10 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/21 14:15:25 by ryanagit         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:38:34 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,6 @@ void		is_direct_message(char *str);
 void		delete_null(t_branch *branch);
 int			help_revive(t_token *tmp);
 void		revive_command(t_branch *branch);
+void		only_word_cut_roop(char *str, t_branch *branch);
 
 #endif

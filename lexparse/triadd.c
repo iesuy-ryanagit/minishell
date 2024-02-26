@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   triadd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmotoyam <kmotoyam@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ryanagit <ryanagit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 19:27:06 by ryanagit          #+#    #+#             */
-/*   Updated: 2024/02/20 15:42:13 by kmotoyam         ###   ########.fr       */
+/*   Updated: 2024/02/26 15:38:11 by ryanagit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,23 @@ void	revive_command(t_branch *branch)
 			flag = 1;
 		tmp = tmp->next;
 	}
+}
+
+void	only_word_cut_roop(char *str, t_branch *branch)
+{
+	size_t		i;
+	size_t		len;
+
+	i = 0;
+	while (str[i])
+	{
+		while (check_split(str[i]) == 1)
+			i++;
+		if (str[i] == '\0')
+			break ;
+		len = word_real_length(&str[i]);
+		token_add_back(branch, token_create_new(&str[i], 0, len));
+		i = i + len;
+	}
+	free(str);
 }
